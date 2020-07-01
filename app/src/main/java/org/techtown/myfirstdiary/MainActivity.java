@@ -21,11 +21,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("My Calendar Diary");
 
-        // 뷰에 있는 위젯들 리턴 받아두기
         datePicker = findViewById(R.id.datePicker);
         viewDatePick = findViewById(R.id.viewDatePick);
 
-        // 오늘 날짜를 받게해주는 Calender 친구들
+        // 오늘 날짜 받음
         Calendar c = Calendar.getInstance();
         int cYear = c.get(Calendar.YEAR);
         int cMonth = c.get(Calendar.MONTH) + 1;

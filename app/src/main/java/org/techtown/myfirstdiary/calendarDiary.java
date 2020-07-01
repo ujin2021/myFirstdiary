@@ -17,11 +17,11 @@ import java.io.FileOutputStream;
 //import java.util.Calendar;
 
 public class calendarDiary extends AppCompatActivity {
-    EditText edtDiary;   //  edtDiary - 선택한 날짜의 일기를 쓰거나 기존에 저장된 일기가 있다면 보여주고 수정하는 영역
-    Button btnSave;   //  btnSave - 선택한 날짜의 일기 저장 및 수정(덮어쓰기) 버튼
+    EditText edtDiary;   // 일기쓰기, 기존의 일기 띄워주기
+    Button btnSave;   // 일기 저장, 수정버튼
     TextView date;
     Button calendar;
-    String fileName;   //  fileName - 돌고 도는 선택된 날짜의 파일 이름
+    String fileName;
     String data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,6 @@ public class calendarDiary extends AppCompatActivity {
         Intent intent = getIntent();
         processIntent(intent);
 
-        // 저장/수정 버튼 누르면 실행되는 리스너
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,11 +70,10 @@ public class calendarDiary extends AppCompatActivity {
         int monthOfYear = Integer.parseInt(dateArr[1]);
         int dayOfMonth = Integer.parseInt(dateArr[2]);
 
-        // 파일 이름을 만들어준다. 파일 이름은 "20170318.txt" 이런식으로 나옴
         fileName = year + "" + monthOfYear + "" + dayOfMonth + ".txt";
 
         // 읽어봐서 읽어지면 일기 가져오고
-        // 없으면 catch
+        // 없으면 catch로 처리
         FileInputStream fis = null;
         try {
             fis = openFileInput(fileName);
@@ -89,7 +87,8 @@ public class calendarDiary extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "일기 써둔 날", Toast.LENGTH_SHORT).show();
             edtDiary.setText(str);
             btnSave.setText("수정하기"); // 일기 써둔게 있다면 수정하기로 버튼이 바뀐다.
-        } catch (Exception e) { // UnsupportedEncodingException , FileNotFoundException , IOException
+        }
+        catch (Exception e) {
             // 없어서 오류가 나면 일기가 없는 것. 일기 새로 씀
             Toast.makeText(getApplicationContext(), "일기 없는 날", Toast.LENGTH_SHORT).show();
             edtDiary.setText("");
@@ -99,7 +98,7 @@ public class calendarDiary extends AppCompatActivity {
 
     }
 
-    // 일기 저장하는 메소드
+    // 일기 저장
     private void saveDiary(String readDay) {
 
         FileOutputStream fos = null;
